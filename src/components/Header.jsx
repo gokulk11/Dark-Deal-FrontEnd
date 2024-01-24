@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/cart/cartSlice";
 import {
   Menu,
@@ -19,28 +19,29 @@ import {
 } from "../redux/user/userSlice";
 
 const Header = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
   const { itemCount } = useSelector((state) => state.cart);
+  const [currentUser, setCurrentUser] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSignOut = async () => {
-    console.log("hello");
-    try {
-      dispatch(signOutUserStart());
-      const res = await fetch("/api/auth/signout");
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(signOutUserFailure(data.message));
-        return;
-      }
-      dispatch(signOutUserSuccess(data));
-    } catch (error) {
-      dispatch(signOutUserFailure(error.message));
-    }
-  };
+  // const handleSignOut = async () => {
+  //   console.log("hello");
+  //   try {
+  //     dispatch(signOutUserStart());
+  //     const res = await fetch("/api/auth/signout");
+  //     const data = await res.json();
+  //     if (data.success === false) {
+  //       dispatch(signOutUserFailure(data.message));
+  //       return;
+  //     }
+  //     dispatch(signOutUserSuccess(data));
+  //   } catch (error) {
+  //     dispatch(signOutUserFailure(error.message));
+  //   }
+  // };
 
   console.log(itemCount);
-  
+
   return (
     <div className=" sticky top-0 z-10 bg-white">
       <div className="h-20 flex items-center justify-between pr-2">
@@ -67,7 +68,9 @@ const Header = () => {
         <div className=" flex items-center sm:gap-2 mr-2 ">
           <Link to="/cart/1" className=" h-9 flex items-center">
             <ShoppingCartIcon className=" h-6 w-6 hidden  sm:block  text-slate-700" />
-             <span className="hidden sm:block self-start text-[10px] bg-rose-500 p-[2px] rounded-full text-white font-semibold">{itemCount}</span>
+            <span className="hidden sm:block self-start text-[10px] bg-rose-500 p-[2px] rounded-full text-white font-semibold">
+              {itemCount}
+            </span>
           </Link>
           {!currentUser ? (
             <div className="hidden sm:flex gap-2 px-2">
@@ -86,19 +89,11 @@ const Header = () => {
             <Link className=" z-20 flex items-center justify-center rounded-full w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  bg-slate-200 px-2">
               <Menu>
                 <MenuButton>
-                  {currentUser.avatar ? (
-                    <img
-                      src={currentUser.avatar}
-                      className="rounded-full"
-                      alt="avatar"
-                    />
-                  ) : (
-                    <img
-                      src="https://cdn.vectorstock.com/i/preview-1x/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg"
-                      className="rounded-full"
-                      alt="avatar"
-                    />
-                  )}
+                  <img
+                    src="https://cdn.vectorstock.com/i/preview-1x/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg"
+                    className="rounded-full"
+                    alt="avatar"
+                  />
                 </MenuButton>
                 <MenuList bgColor={"gray.500"} color={"white"}>
                   <Link to={"/account"}>
@@ -117,7 +112,9 @@ const Header = () => {
                       My Orders
                     </MenuItem>
                   </Link>
-                  <MenuItem onClick={handleSignOut} bgColor={"gray.500"} _hover={{ bg: "black" }}>
+                  <MenuItem
+                    bgColor={"gray.500"}
+                    _hover={{ bg: "black" }}>
                     Logout
                   </MenuItem>
                 </MenuList>
