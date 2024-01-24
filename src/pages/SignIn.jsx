@@ -6,13 +6,12 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 import {
   signInStart,
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
-import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -126,7 +125,6 @@ const SignIn = () => {
                 className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 {loading ? "Loading..." : "Sign in"}
               </button>
-              <OAuth />
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link
@@ -138,11 +136,11 @@ const SignIn = () => {
             </form>
           </div>
           {error && (
-            <Alert status='error'>
-            <AlertIcon />
-            <AlertTitle>{error}!</AlertTitle>
-            <AlertDescription>Please check the credentials</AlertDescription>
-          </Alert>
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle>{error}!</AlertTitle>
+              <AlertDescription>Please check the credentials</AlertDescription>
+            </Alert>
           )}
         </div>
       </div>

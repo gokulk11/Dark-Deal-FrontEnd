@@ -26,7 +26,6 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
